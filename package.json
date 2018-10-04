@@ -1,0 +1,11 @@
+{
+  "name": "chatjs",
+  "author": "Jose Luis Olivares",
+  "version": "2.0.0",
+  "description": "Chat using socket.io and nodeJS, 2018 version 2",
+  "dependencies": {
+    "express": "^4.13.4",
+    "socket.io": "^1.4.5",
+    "mysql": "^2.5.4"
+  }
+}
