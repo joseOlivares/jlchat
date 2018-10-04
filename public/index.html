@@ -5,84 +5,73 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-	<meta name="description" content="Chat app using Node.js">
+	<meta name="description" content="Chat app using Node.js, SocketIO, MySql and UIkit 3">
 	<meta name="author" content="Jose Luis Oivares">
 	<meta name="profile" content="https://www.linkedin.com/in/jolivaress">
+    
+    <link rel="stylesheet" href="vendor/uikit/css/uikit.min.css" />
+    <script src="vendor/uikit/js/uikit.min.js"></script>
+    <script src="vendor/uikit/js/uikit-icons.min.js"></script>
 
-	<!-- <script src="libs/js/jquery.js" type="text/javascript"></script>  -->
-	<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
-	<script src="js/jquery.js"></script>
-	<script src="js/bootstrap.min.js"></script>  
+	<script src="js/jquery.js"></script> 
  	<script src="js/jlfunctions.js"> </script>
-	
-	<script src="js/socket.io-1.4.5.js"></script>
-	
+	<script src="js/socket.io-1.4.5.js"></script>	
 	<script src="js/handlebars-v4.js"></script>
 	<script src="js/hammer.min.js"></script>
 	<script src="js/fastclick.js"></script>	 	
-	<!-- <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
-	<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>  -->
-
-
    	<link href="css/style.css" rel="stylesheet" type="text/css">
+   	<link href="vendor/fontawesome/css/all.css" rel="stylesheet">
 
-   <title>Chat 1.0,by Jose Luis Olivares</title>
+   <title>jlChat 2.0 by Jose Luis Olivares</title>
   </head>
   <body>
+	<div class="uk-container">
+		<div class="uk-position-center uk-overlay uk-overlay-default">	
 
-  <div class="container">
-	<div class="row">
-	  	<div class="col-sm-3 col-md-3"></div>	
-			<div class="col-sm-6 col-md-6">&nbsp</div>
-  		<div class="col-sm-3 col-md-3"></div>			
-	</div> 
-
-  	<div class="row">
-  		<div class="col-xs-1 col-sm-3 col-md-3"></div>
-  		<div class="col-xs-10 col-sm-6 col-md-6">
-			<div class="panel panel-primary" style="margin-bottom: 2px;">
-				<div class="panel-heading">
-					<div class="pull-right"><span class="glyphicon glyphicon-user green"></span> Users: <span class="badge" id="usersConnected"></span></div>
-					<br><br>
-					<div class="form-inline">
-						<label for="idsender">Sender:</label>
-							<select class="form-control select-w " id="idsender">
-								<option value="1">User1</option>
-								<option value="2">User2</option>
-								<option value="3">User3</option>
-								<option value="4">User4</option>
-							</select>	
-							<button id="btnLogin" class="btn btn-default xBtn">Login</button>
-							<button id="btnLogout" class="btn btn-default xBtn">Logout</button>	
-					</div>
-				</div>
+			<div class="uk-card uk-card-default uk-width-1-1@m">
+			    <div class="uk-card-header">
+			        <div class="uk-grid-small uk-flex-middle" uk-grid>
+			            <div class="uk-width-auto">
+			                <img class="uk-border-circle" width="40" height="40" src="images/avatar.jpg">
+			                <div class="uk-border-circle"><i class="fas fa-user"></i></div>
+			            </div>
+			            <div class="uk-width-expand">
+							<form>
+							    <div class="uk-margin">						    	
+							        <div class="uk-form-controls">
+							        	<label class="uk-form-label" for="idsender">Sender: </label>
+							        	<div uk-form-custom="target: > * > span:first-child">
+								            <select class="uk-select" id="idsender">
+								            	<option value="">Please select...</option>
+												<option value="1">User1</option>
+												<option value="2">User2</option>
+												<option value="3">User3</option>
+												<option value="4">User4</option>
+								            </select>
+								            <button class="uk-button uk-button-default" type="button" tabindex="-1">
+	            								<span></span>
+	            								<span uk-icon="icon: chevron-down"></span>
+	        								</button>
+	        							</div>	
+							        </div>
+								        
+							    </div>
+									<button id="btnLogin" class="uk-button uk-button-default xBtn">Login</button>
+									<button id="btnLogout" class="uk-button uk-button-default xBtn">Logout</button>	
+							</form>
+			            </div>
+			        </div>
+			    </div>
+			    <div class="uk-card-body uk-height-large uk-height-max-large">
+			        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.</p>
+			    </div>
+			    <div class="uk-card-footer">
+			        <a href="#" class="uk-button uk-button-text">Read more</a>
+			    </div>
 			</div>
 
-				 <div class="panel-body chatbody" id="txtChat">
-					 <div class="list-group" id="messages"> </div> <!-- chat messages here -->
-				 </div>
-
-			  	<div class="panel-footer"> 
-					<form action="" class="form-inline">
-					    <label for="idreceiver">To</label>
-						<select class="form-control select-w" id="idreceiver"></select>
-					     <input id="m" autocomplete="off" class="form-control input-msg" placeholder="" />
-					    <!--  <label>To Id<input id="idreceiver" class="form-control input-xs"/></label> -->	  
-					</form>
-			  	</div>		  	
-
-
-		</div>
-  		<div class="col-xs-1  col-sm-3 col-md-3"></div>
-  	</div> <!-- End Row -->
-
-
-		<div class="row">
-	  	<div class="col-sm-3 col-md-3"></div>	
-			<div class="col-sm-6 col-md-6 "><div class="text-center"><a href="https://www.linkedin.com/in/jolivaress">by Jose Luis Olivares </a></div></div>
-  		<div class="col-sm-3 col-md-3"></div>			
-	</div>  	
-  </div> <!-- End conatiner-->
+		</div>		
+	</div>
   <script src="js/main.js" type="text/javascript"></script> 
   </body>
 </html>
