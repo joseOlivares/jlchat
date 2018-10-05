@@ -26,14 +26,13 @@
   </head>
   <body>
 	<div class="uk-container">
-		<div class="uk-position-center uk-overlay uk-overlay-default">	
+		<div class="uk-position-center">	
 
 			<div class="uk-card uk-card-default uk-width-1-1@m">
 			    <div class="uk-card-header">
-			        <div class="uk-grid-small uk-flex-middle" uk-grid>
+			        <div class="uk-grid-small uk-flex-middlex" uk-grid>
 			            <div class="uk-width-auto">
-			                <img class="uk-border-circle" width="40" height="40" src="images/avatar.jpg">
-			                <div class="uk-border-circle"><i class="fas fa-user"></i></div>
+			                <div class="uk-border-circle"><i class="fas fa-user-circle fa-2x"></i></div>
 			            </div>
 			            <div class="uk-width-expand">
 							<form>
@@ -42,7 +41,7 @@
 							        	<label class="uk-form-label" for="idsender">Sender: </label>
 							        	<div uk-form-custom="target: > * > span:first-child">
 								            <select class="uk-select" id="idsender">
-								            	<option value="">Please select...</option>
+								            	<option value="0">Please select...</option>
 												<option value="1">User1</option>
 												<option value="2">User2</option>
 												<option value="3">User3</option>
@@ -52,21 +51,32 @@
 	            								<span></span>
 	            								<span uk-icon="icon: chevron-down"></span>
 	        								</button>
-	        							</div>	
-							        </div>
-								        
+	        							</div>
+	        							<button id="btnLogin" class="uk-button uk-button-primary xBtn">Login</button>
+										<button id="btnLogout" class="uk-button uk-button-primary xBtn">Logout</button>			
+							        </div>     
 							    </div>
-									<button id="btnLogin" class="uk-button uk-button-default xBtn">Login</button>
-									<button id="btnLogout" class="uk-button uk-button-default xBtn">Logout</button>	
 							</form>
 			            </div>
 			        </div>
 			    </div>
-			    <div class="uk-card-body uk-height-large uk-height-max-large">
-			        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.</p>
+			    <div class="uk-card-body chatbody" id="txtChat">
+			        <div class="list-group" id="messages"> </div> <!-- chat messages here -->
 			    </div>
 			    <div class="uk-card-footer">
-			        <a href="#" class="uk-button uk-button-text">Read more</a>
+			    	<label class="uk-form-label uk-form-width-xsmall" for="idreceiver">Send to:</label>
+					<form class="uk-grid-small" uk-grid>
+						<div class="uk-width-1-4@s">
+							<div class="uk-form-controls">
+								<select class="uk-select uk-form-width-small" id="idreceiver"></select>
+							</div>
+						</div>
+						<div class="uk-width-3-4@s">
+							<div class="uk-form-controls">
+									<input id="m" autocomplete="off" class="uk-input" type="text" placeholder="Type your msg...">	
+							</div>
+						</div>								 
+					</form>			        
 			    </div>
 			</div>
 

@@ -11,7 +11,7 @@ var app={
 
 		$('#idsender').prop('disabled', false);//enabling input sender login
 		$('#m').prop('disabled',true);//disabling btn send	
-		$('#btnLogin').prop('disabled',false);//enabling btnLogin
+		$('#btnLogin').prop('disabled',true);//disabling btnLogin
 		$('#btnLogout').prop('disabled',true);//disabling btnLogout
 			//$('#idreceiver').prop('disabled',true);//disabling input receiver
    
@@ -97,6 +97,15 @@ var app={
 	      $('#btnLogout').on('click',function(){
 	      		location.reload(true);
 	      });		
+
+	      $('#idsender').on('change',function(){
+	      		var op=$('#idsender').val()||0;
+
+	      		if(op!==0){
+	      			$('#btnLogin').prop('disabled',false);//enabling btnLogin
+	      		}
+
+	      });
 
 	}, //close listenSocket
 
