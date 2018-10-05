@@ -89,7 +89,7 @@ var app={
 	      function toReceivers(takenId){
 	      	for(var v=1;v<5;v++){
 	      		if(takenId!=v){
-	      			$('#idreceiver').append($("<option></option>").val(v).html("user"+v));
+	      			$('#idreceiver').append($("<option></option>").val(v).html("USER"+v));
 	      		}
 	      	}	
 	      }
