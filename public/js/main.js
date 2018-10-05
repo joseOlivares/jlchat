@@ -3,7 +3,7 @@ var app={
 
 	listenSocket:function(){
 	     var socket = io.connect(this.serverUrl); //creating socket connection
-	     var usericon='<span class="glyphicon glyphicon-user blue"></span> ';
+	     var usericon='<span uk-icon="commenting"></span> ';
 	     var currentUser='nobody';//current user nickname 
  		 var currentUserId=10;	//initial default value     
  		 var userImg='<img src="img/user.gif" class="img-responsive img-circle center-block" alt="user image">';
@@ -44,9 +44,9 @@ var app={
 	        for (var i = 0; i < data.length; i++){
 
 	        	if(data[i].idsender==currentUserId){ //right allingment for my messages
-		 			$('#messages').append('<div class="bubble2 me"><div class="row"><div class="col-xs-3 col-sm-2">'+userImg +'</div><div class="col-xs-9 col-sm-10">'+usericon +' '+data[i].nickname+': </br>'+data[i].msg + '    ' + '<h6><small class="text-right">  '+data[i].datetime + '</small></h6></div></div></div>');
+		 			$('#messages').append('<div class="bubble2 me"><div class="uk-flex-row uk-flex-middle" uk-grid><div class="uk-width-auto">'+userImg +'</div><div class="uk-width-expand">'+data[i].nickname+' '+usericon+' </br>'+data[i].msg + '    ' + '<h6><small class="uk-text-right">  '+data[i].datetime + '</small></h6></div></div></div>');
 	        	}else{
-		 			$('#messages').append('<div class="bubble you"><div class="row"><div class="col-xs-9 col-sm-10">'+usericon+' '+data[i].nickname+': </br>'+data[i].msg + '    ' + '<h6><small>  '+data[i].datetime + '</small></h6></div><div class="col-xs-3 col-sm-2">'+userImg+'</div></div></div>');	
+		 			$('#messages').append('<div class="bubble you"><div class="uk-flex-row uk-flex-middle" uk-grid><div class="uk-width-expand">'+data[i].nickname+' '+usericon+' </br>'+data[i].msg + '    ' + '<h6><small>  '+data[i].datetime + '</small></h6></div><div class="uk-width-auto">'+userImg+'</div></div></div>');	
 		 			}
 	        }
 	 	    $('#txtChat').scrollTop($('#txtChat')[0].scrollHeight);//moving to the last msg  
@@ -94,6 +94,7 @@ var app={
 	      	}	
 	      }
 
+	      //Listeners
 	      $('#btnLogout').on('click',function(){
 	      		location.reload(true);
 	      });		
@@ -106,6 +107,11 @@ var app={
 	      		}
 
 	      });
+
+	      $('#idreceiver').on('change',function(){
+	   			$('#m').focus();
+	      });
+	      //--End listeners
 
 	}, //close listenSocket
 
