@@ -16,7 +16,7 @@ var app={
 			//$('#idreceiver').prop('disabled',true);//disabling input receiver
    
     socket.on('users connected', function(data){
-        $('#usersConnected').html(data); //displaying how many conncetions are.
+        $('#usersConnected').html(data); //displaying how many connections are.
     });    
 
 		$('#btnLogin').on('click',function(){
