@@ -1,17 +1,11 @@
 /* My CSS */
 
 .chatbody{
-    min-height:450px; max-height: 450px;overflow-y: scroll;
+    min-height:410px; max-height: 410px;overflow-y: scroll;
     background-image: url("../img/fondo_chat.gif");	
  /*width: 400px;
  min-height: 350px	*/
 }
-
-/* Extra small devices (phones, 600px and down) */
-@media only screen and (max-width: 600px) {
- .chatbody{min-height:350px;max-height:350px;}
-}
-
 
 .bubble{
     background-color: #FFFAFA;
@@ -65,7 +59,7 @@
 }
 
 .you {
-	width: 90%;
+	width: 70%;
     float: left;   
     margin: 5px 45px 5px 20px;
     color: #a23a77;         
@@ -77,7 +71,7 @@
 }
 
 .me {
-	width: 90%;
+	width: 70%;
     float: right;    
     margin: 5px 20px 5px 45px; 
     color: #3a8aae;     
@@ -88,5 +82,16 @@
     right: -9px;    
 }
 
+/* Extra small devices (phones, 600px and down) */
 
+@media only screen and (max-width: 768px) {
+ .chatbody {min-height:320px;max-height:320px;}
+ .me {width: 90%;}
+ .you {width: 90%;}
+}
 
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 992px) {
+ .me {width: 60%;}
+ .you {width: 60%;}
+} 
