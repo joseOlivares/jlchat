@@ -102,10 +102,12 @@ var app={
 	      $('#idsender').on('change',function(){
 	      		var op=$('#idsender').val()||0;
 
-	      		if(op!==0){
+	      		if(op!=="0"){
 	      			$('#btnLogin').prop('disabled',false);//enabling btnLogin
+	      			alert("enable");
 	      		}else {
 	      			$('#btnLogin').prop('disabled',true);//disabling btnLogin
+	      			alert("disable");
 	      		}
 
 	      });
