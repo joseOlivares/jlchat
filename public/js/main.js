@@ -14,7 +14,7 @@ var app={
 		$('#btnLogin').prop('disabled',true);//disabling btnLogin
 		$('#btnLogout').prop('disabled',true);//disabling btnLogout
 			//$('#idreceiver').prop('disabled',true);//disabling input receiver
-   
+
     socket.on('users connected', function(data){
         $('#usersConnected').html(data); //displaying how many connections are.
     });    
@@ -104,8 +104,10 @@ var app={
 
 	      		if(op!=="0"){
 	      			$('#btnLogin').prop('disabled',false);//enabling btnLogin
+	      			$('#btnLogin').addClass('uk-animation-shake');
 	      		}else {
 	      			$('#btnLogin').prop('disabled',true);//disabling btnLogin
+	      			$('#btnLogin').removeClass('uk-animation-shake');
 	      		}
 
 	      });
@@ -120,6 +122,7 @@ var app={
 
     initialize: function(){ //inicializando el objeto
     	var self=this;
+    	UIkit.notification("<div class='uk-text-center'>Choose a sender <span uk-icon='icon:arrow-right'></span></div>",{pos: 'top-left',status:'primary',timeout:2000});
     	self.listenSocket();
         }
 };
