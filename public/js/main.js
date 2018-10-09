@@ -104,6 +104,8 @@ var app={
 
 	      		if(op!==0){
 	      			$('#btnLogin').prop('disabled',false);//enabling btnLogin
+	      		}else {
+	      			$('#btnLogin').prop('disabled',true);//disabling btnLogin
 	      		}
 
 	      });
