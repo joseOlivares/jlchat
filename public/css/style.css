@@ -94,4 +94,9 @@
 @media only screen and (min-width: 992px) {
  .me {width: 60%;}
  .you {width: 60%;}
+}
+
+#usersBadge{
+    margin: 20px 12px 0 5px;
+    padding-left: 5px;
 } 
