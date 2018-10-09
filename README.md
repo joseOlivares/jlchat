@@ -1,4 +1,4 @@
-# jlchat
+# jlchat by Jose Luis Olivares
 
 Hello everyone!
 
