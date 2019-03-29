@@ -145,6 +145,9 @@ io.on('connection', function(socket){
 	//-----------------------------------END of bloque IF
 }//end function loadData;
 
+
+
+
     socket.on('disconnect', function () {
 
         socketCount--; // Decrease the socket count on a disconnect

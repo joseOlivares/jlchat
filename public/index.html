@@ -1,91 +1,80 @@
 <!doctype html>
 <html>
-  <head>
-  	<meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-   <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-	<meta name="description" content="Chat app using Node.js, SocketIO, MySql and UIkit 3">
-	<meta name="author" content="Jose Luis Oivares">
-	<meta name="profile" content="https://www.linkedin.com/in/jolivaress">
-    
-    <link rel="stylesheet" href="vendor/uikit/css/uikit.min.css" />
-    <script src="vendor/uikit/js/uikit.min.js"></script>
-    <script src="vendor/uikit/js/uikit-icons.min.js"></script>
 
-	<script src="js/jquery.js"></script> 
- 	<!-- <script src="js/jlfunctions.js"> </script> -->
-	<script src="js/socket.io-1.4.5.js"></script>	
-	<script src="js/handlebars-v4.js"></script>
-	<script src="js/hammer.min.js"></script>
-	<script src="js/fastclick.js"></script>	 	
-   	<link href="css/style.css" rel="stylesheet" type="text/css">
-   	<link href="vendor/fontawesome/css/all.css" rel="stylesheet">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+  <meta name="description" content="Chat app using Node.js, SocketIO, MySql and UIkit 3">
+  <meta name="author" content="Jose Luis Oivares">
+  <meta name="profile" content="https://www.linkedin.com/in/jolivaress">
 
-   <title>jlChat 2.0 by Jose Luis Olivares</title>
-  </head>
-  <body>
-	<div class="uk-container">
-		<div class="uk-flex">	
-			<div class="uk-card uk-card-default uk-width-1-1@m">
-			    <div class="uk-card-header">
-			        <div class="uk-grid-medium"  uk-grid>
-			            <div class="uk-width-auto" style="padding-left: 10px">
-			                <div class="uk-border-circle"><i class="fas fa-user-circle fa-3x"></i></div>
-			            </div> 
-			            <div class="uk-width-expand">
-							<form class="uk-grid-small" uk-grid>				    	
-							        <div class="uk-form-controls">
-							        	<label class="uk-form-label" for="idsender">Sender: </label>
-							        	<div id="animeSender" uk-form-custom="target: > * > span:first-child">
-								            <select class="uk-select uk-form-medium" id="idsender">
-								            	<option value="0">Please select...</option>
-												<option value="1">User1</option>
-												<option value="2">User2</option>
-												<option value="3">User3</option>
-												<option value="4">User4</option>
-								            </select>
-								            <button class="uk-button uk-button-default" type="button" tabindex="-1">
-	            								<span></span>
-	            								<span uk-icon="icon: chevron-down"></span>
-	        								</button>
-	        							</div>
-	        						</div>
-	        						<div class="uk-form-controls">						
-	        							<button id="btnLogin" class="uk-button  uk-button-primary xBtn">Login</button>
-										<button id="btnLogout" class="uk-button  uk-button-primary xBtn">Logout</button>
-									</div>	
-	        																	
-							</form>
-							<div class="uk-position-top-right" id="usersBadge">
-								<span uk-icon="icon: users"></span>
-								<span class="uk-badge "><div id="usersConnected"></div></span>
-							</div>	
-			            </div>
-			        </div>
-			    </div>
-			    <div class="uk-card-body chatbody" id="txtChat">
-			        <div class="uk-list" id="messages"> </div> <!-- chat messages here -->
-			    </div>
-			    <div class="uk-card-footer">
-			    	<label class="uk-form-label uk-form-width-xsmall" for="idreceiver">Send to:</label>
-					<form class="uk-grid-small" uk-grid>
-						<div class="uk-width-1-4@s">
-							<div class="uk-form-controls">
-								<select class="uk-select uk-form-width-small" id="idreceiver"></select>
-							</div>
-						</div>
-						<div class="uk-width-3-4@s">
-							<div class="uk-form-controls">
-									<input id="m" autocomplete="off" class="uk-input" type="text" placeholder="Type your msg...">	
-							</div>
-						</div>								 
-					</form>			        
-			    </div>
-			</div>
-		</div>
-		<div class="uk-text-center"><br> <a class="uk-button uk-button-text" href="https://www.linkedin.com/in/jolivaress">by Jose Luis Olivares </a></div>		
-	</div>
-  <script src="js/main.js" type="text/javascript"></script> 
-  </body>
+  <link rel="stylesheet" href="vendor/uikit/css/uikit.min.css" />
+  <script src="vendor/uikit/js/uikit.min.js"></script>
+  <script src="vendor/uikit/js/uikit-icons.min.js"></script>
+
+  <script src="js/jquery.js"></script>
+  <!-- <script src="js/jlfunctions.js"> </script> -->
+  <script src="js/socket.io-1.4.5.js"></script>
+  <script src="js/handlebars-v4.js"></script>
+  <script src="js/hammer.min.js"></script>
+  <script src="js/fastclick.js"></script>
+  <link href="css/style.css" rel="stylesheet" type="text/css">
+  <link href="vendor/fontawesome/css/all.css" rel="stylesheet">
+
+  <title>jlChat 2.0 by Jose Luis Olivares</title>
+</head>
+
+<body>
+  <div class="container">
+    <div class="uk-width-xxlarge uk-align-center ">
+      <div class="uk-card uk-card-default uk-width-1-1@s">
+        <div class="uk-card-header">
+          <div class="uk-grid-small uk-flex-middle" uk-grid>
+            <div class="uk-width-auto">
+              <img class="uk-border-circle" width="40" height="40" src="images/avatar.jpg">
+            </div>
+            <div class="uk-width-expand">
+              <div class="uk-form-controls">
+                <label class="uk-form-label" for="senderNick">Sender: </label>
+                  <input class="uk-input uk-form-width-medium uk-form-small uk-animation-shake" type="text" placeholder="Your Nickame" autocomplete="off" id="senderNick" uk-tooltip="title: Write a valid Nickname!; pos: left;"  required>
+                  <button id="btnLogin" class="uk-button  uk-button-primary" uk-tooltip="Login"><span uk-icon="sign-in"></span></button>
+                  <button id="btnLogout" class="uk-button uk-button-primary" uk-tooltip="Logout"><span uk-icon="sign-out"></span></button>
+              </div>
+              </form>
+            </div>
+          </div>
+        </div>
+        <div class="uk-card-body chatbody" id="txtChat">
+            <div class="uk-list" id="messages"> </div> <!-- chat messages here -->
+        </div>
+        <div class="uk-card-footer">
+            <label class="uk-form-label uk-form-width-xsmall" for="receiverNick">Send to:</label>
+            <form class="uk-grid-small" uk-grid>
+              <div class="uk-width-1-4@s">
+                <div class="uk-form-controls">
+                  <select class="uk-select uk-form-width-small" id="receiverNick"></select>
+                </div>
+              </div>
+              <div class="uk-width-3-4@s">
+                <div class="uk-form-controls">
+                  <input id="m" autocomplete="off" class="uk-input" type="text" placeholder="Type your msg...">
+                </div>
+              </div>
+            </form>
+            <div class="uk-text-center" id="usersBadge">
+              <span uk-icon="icon: users"></span>
+              <span class="uk-badge ">
+                <div id="usersConnected"></div>
+              </span>
+            </div>
+        </div>
+      </div> <!--end card -->
+      <div class="uk-text-center"><br> <a class="uk-button uk-button-text" href="https://www.linkedin.com/in/jolivaress">by Jose Luis Olivares </a></div>
+    </div>
+  </div>
+  <script src="js/main.js" type="text/javascript"></script>
+</body>
+
 </html>
