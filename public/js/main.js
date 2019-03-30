@@ -23,7 +23,8 @@ var app={
 				senderNick=senderNick.trim();
 				$('#senderNick').prop('disabled', true); //disabling input senderNick
 				$('#m').prop('disabled', false); //enabling input message
-				socket.emit('user logged',senderNick); //enviando el nickname del usuario logeado
+				//socket.emit('user logged',senderNick); //enviando el nickname del usuario logeado
+				socket.emit('insert user',senderNick); //enviando usernick para ser validado e insertado
 				toReceivers(senderNick);//adding posible receiver to html select, calling a function
 				$('#btnLogin').prop('disabled',true);//disabling btnLogin
 				$('#btnLogout').prop('disabled',false);//enabling btnLogout

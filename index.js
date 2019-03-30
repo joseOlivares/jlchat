@@ -30,10 +30,38 @@ app.get('/', function(req, res){
 
 io.on('connection', function(socket){
 	console.log('an user connected...');
-	//console.log(socket);
+	  console.log(socket);
     socketCount++;// Socket has connected, increase socket count
-
     io.sockets.emit('users connected', socketCount);    // Let all sockets know how many are connected
+
+    socket.on('insert user',function(nickUser){ //loading info from logged user
+  		//userInfo=userx;
+  		socket.join(nickUser); //adding user id to an unique room
+
+      //validando que usuario no exista
+  		var checkUser='SELECT * FROM user WHERE nickname=?';
+  		pool.getConnection(function(err, connection) {
+  		  // Use the connection
+  		  connection.query(checkUser,[nickUser],function(err,rows) {
+  		  		if(err){
+  		  			console.log(err);
+  		  			return;
+  		  		}else{
+  		  			//userInfo.push(rows); //user information
+
+              console.log('Usuarios encontrados ='+rows.length);
+              //socket.emit('user logged',rows);
+  		  			loadData(idCurrUser);
+
+  		  			//console.log(rows);
+  		  		}
+  		    // release connection
+  		    connection.release();
+  		    // Don't use the connection here, it has been returned to the pool.
+  		  });
+  		});
+  	});
+
 
 	socket.on('chat message', function(msg){ //broadcasting msgs
 		//notes.push(msg);
@@ -78,37 +106,6 @@ io.on('connection', function(socket){
 		});
 
 	});//end socket.on 'chat message'
-
-
-	socket.on('user logged',function(idCurrUser){ //loading info from logged user
-		//userInfo=userx;
-		socket.join(idCurrUser); //adding user id to an unique room
-
-		var selectUser='SELECT * FROM user WHERE iduser=?';
-
-		//console.log('User id '+idCurrUser);
-
-		pool.getConnection(function(err, connection) {
-
-		  // Use the connection
-		  connection.query(selectUser,[idCurrUser],function(err,rows) {
-		  		if(err){
-		  			console.log(err);
-		  			return;
-		  		}else{
-		  			//userInfo.push(rows); //user information
-		  			socket.emit('user logged',rows);
-
-		  			loadData(idCurrUser);
-
-		  			//console.log(rows);
-		  		}
-		    // release connection
-		    connection.release();
-		    // Don't use the connection here, it has been returned to the pool.
-		  });
-		});
-	});
 
 
 	function loadData(myUser){

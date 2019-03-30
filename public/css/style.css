@@ -2,7 +2,7 @@
 
 .chatbody{
     min-height:410px; max-height: 410px;overflow-y: scroll;
-    background-image: url("../img/fondo_chat.gif");	
+    background-image: url("../img/fondo_chat.gif");
  /*width: 400px;
  min-height: 350px	*/
 }
@@ -60,26 +60,26 @@
 
 .you {
 	width: 70%;
-    float: left;   
+    float: left;
     margin: 5px 45px 5px 20px;
-    color: #a23a77;         
+    color: #a23a77;
 }
 
 .you::before {
     box-shadow: -2px 2px 2px 0 rgba( 178, 178, 178, .4 );
-    left: -9px;           
+    left: -9px;
 }
 
 .me {
 	width: 70%;
-    float: right;    
-    margin: 5px 20px 5px 45px; 
-    color: #3a8aae;     
+    float: right;
+    margin: 5px 20px 5px 45px;
+    color: #3a8aae;
 }
 
 .me::before {
     box-shadow: 2px -2px 2px 0 rgba( 178, 178, 178, .4 );
-    right: -9px;    
+    right: -9px;
 }
 
 /* Extra small devices (phones, 600px and down) */
@@ -99,4 +99,12 @@
 #usersBadge{
     margin: 20px 12px 0 5px;
     padding-left: 5px;
-} 
+}
+
+@media only screen and (max-width: 560px) {
+  #divButtons{
+    display: block;
+    margin-top: 1rem;
+    text-align: center;
+  }
+}

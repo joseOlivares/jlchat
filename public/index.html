@@ -33,14 +33,16 @@
         <div class="uk-card-header">
           <div class="uk-grid-small uk-flex-middle" uk-grid>
             <div class="uk-width-auto">
-              <img class="uk-border-circle" width="40" height="40" src="images/avatar.jpg">
+              <img class="uk-border-circle" width="40" height="40" src="img/user.gif">
             </div>
             <div class="uk-width-expand">
               <div class="uk-form-controls">
                 <label class="uk-form-label" for="senderNick">Sender: </label>
-                  <input class="uk-input uk-form-width-medium uk-form-small uk-animation-shake" type="text" placeholder="Your Nickame" autocomplete="off" id="senderNick" uk-tooltip="title: Write a valid Nickname!; pos: left;"  required>
+                <input class="uk-input uk-form-width-medium uk-form-small uk-animation-shake" type="text" placeholder="Your Nickame" autocomplete="off" id="senderNick" uk-tooltip="title: Write a valid Nickname!; pos: left;"  required>
+                <div class="uk-inline" id="divButtons">
                   <button id="btnLogin" class="uk-button  uk-button-primary" uk-tooltip="Login"><span uk-icon="sign-in"></span></button>
                   <button id="btnLogout" class="uk-button uk-button-primary" uk-tooltip="Logout"><span uk-icon="sign-out"></span></button>
+                </div>
               </div>
               </form>
             </div>
