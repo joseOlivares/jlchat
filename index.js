@@ -22,39 +22,76 @@ var pool= mysql.createPool({
 var dataRows= [];
 var isInitMsgs = false;
 var socketCount = 0;
-var userInfo=[];
+var userInfo={}; //creando un objeto para almacenar los datos de los usuarios en el server
+let listConnectedUsers=[];
 //-------------------------------
 app.get('/', function(req, res){
   res.sendFile(__dirname + '/public/index.html');
 });
-
+//####################falta implementar eliminar usuarios de la lista al desconectarse del server
 io.on('connection', function(socket){
-	console.log('an user connected...');
-	  console.log(socket);
+	console.log('an user connected... Socket id: '+socket.id);
+	  //console.log(socket);
     socketCount++;// Socket has connected, increase socket count
     io.sockets.emit('users connected', socketCount);    // Let all sockets know how many are connected
 
-    socket.on('insert user',function(nickUser){ //loading info from logged user
+    socket.on('login user',function(nickUser){ //loading info from logged user
   		//userInfo=userx;
-  		socket.join(nickUser); //adding user id to an unique room
-
       //validando que usuario no exista
-  		var checkUser='SELECT * FROM user WHERE nickname=?';
+  		const checkUserQuery='SELECT * FROM user WHERE nickname=?';
   		pool.getConnection(function(err, connection) {
   		  // Use the connection
-  		  connection.query(checkUser,[nickUser],function(err,rows) {
+  		  connection.query(checkUserQuery,[nickUser],function(err,rows) {
   		  		if(err){
   		  			console.log(err);
   		  			return;
-  		  		}else{
-  		  			//userInfo.push(rows); //user information
-
-              console.log('Usuarios encontrados ='+rows.length);
-              //socket.emit('user logged',rows);
-  		  			loadData(idCurrUser);
-
-  		  			//console.log(rows);
   		  		}
+
+            console.log('Usuarios encontrados ='+rows.length);
+            const userQueryResult=rows.length;
+
+            if (userQueryResult===0){ //si no existe lo insertamos
+              const strInsertUser='INSERT INTO user (nickname,pass,email) VALUES(?)';
+              const userFields=[];
+              nickUser=nickUser.trim();
+              userFields[0]=nickUser;//nickname
+              userFields[1]='1234';//pass default
+              userFields[2]='myemail@test.com'; //email default
+                // Use the connection
+                connection.query(strInsertUser,[userFields],function(err, rows) {
+                    if(err){
+                      console.log(err);
+                      return;
+                    }else{
+                      console.log('New user inserted on database!');
+                    }
+                });
+
+                connection.query('SELECT * FROM user WHERE nickname=?',[nickUser],function(err, rows2) {
+                    if(err){
+                      console.log(err);
+                      return;
+                    }else{
+                      userInfo[nickUser]={
+                        socketId: socket.id, //sockeid del cliente
+                        idNickuser: rows2[0].iduser // id de usurio de tabla base de datos
+                      };
+                    }
+                });
+
+            }else if (userQueryResult===1) { //If user already exist
+                userInfo[nickUser]={
+                  socketId: socket.id, //sockeid del cliente
+                  idNickuser: rows[0].iduser //user id from database
+                };
+                loadData(rows[0].iduser); //cargando data en base al idusuario de tabla de base de datos
+            }else {
+              console.log("User query result length is not 0 or 1, check the query...");
+            }
+
+        //   io.sockets.emit('update userslist',{iduser:userInfo[nickUser].idNickuser,nickname:nickUser}); //actualizando listado de usuarios conectados par todos
+          //listConnectedUsers.push({idNickuser:userInfo[nickUser].idNickuser,nickname:nickUser});
+           io.sockets.emit('update userslist',userInfo); //actualizando listado de usuarios conectados par todos
   		    // release connection
   		    connection.release();
   		    // Don't use the connection here, it has been returned to the pool.
@@ -62,36 +99,28 @@ io.on('connection', function(socket){
   		});
   	});
 
-
 	socket.on('chat message', function(msg){ //broadcasting msgs
-		//notes.push(msg);
-		msg[4]=serverTime.myTime();
-		msg[5]=0; //message for all= 0 (private message)
-	    //msg[3] stored nickname
-
 	    //console.log(msg);
-		var msgSinNick=[];
+      msg.time=serverTime.myTime(); //agregamos propiedad tiempo
+		const msgContent=[];
+		msgContent[0]=msg.senderId;//idsender
+		msgContent[1]=msg.receiverId;//idreceiver
+		msgContent[2]=msg.msg; //message
+		msgContent[3]=serverTime.myTime(); //adding server time to msg
+		msgContent[4]=0; //message forall= 0 (private message)
+    //enviando mensaje a dstinatario privado
 
-		msgSinNick[0]=msg[0];//idsender
-		msgSinNick[1]=msg[1];//idreceiver
-		msgSinNick[2]=msg[2]; //message
-		msgSinNick[3]=serverTime.myTime(); //adding server time to msg
-		msgSinNick[4]=0; //message forall= 0 (private message)
+    socket.emit('chat newmsg', msg );
+    //estas dos opciones funionan biune tambien
+    //socket.broadcast.to(userInfo[msg.senderNick].socketId).emit( 'chat newmsg', msg );
+    socket.broadcast.to(userInfo[msg.receiverNick].socketId).emit( 'chat newmsg', msg );
 
-		//=[msg[0],msg[1],msg[2],currentServTime,0]; //making compy without nickname
-
-		io.sockets.in(msg[0]).emit('chat message',msg);//Copy of private message to sender
-		io.sockets.in(msg[1]).emit('chat message',msg);//private msg to receiver
-	    //io.emit('chat message', msg); //sending msg to index.html  client
-
-
-	    console.log('idSender= '+ msg[0] + ' idReceiver=' + msg[1] + ' Msg='+ msg[2] + ' Time=' +msg[4]);
-
-	    var insertMsg='INSERT INTO message (idsender,idreceiver,msg,datetime,forall) VALUES(?)';
+	  console.log('idSender= '+ msg.senderId + ' idReceiver=' + msg.receiverId + ' Msg='+ msg.msg + ' Time=' +msgContent[3]);
+	  const insertMsg='INSERT INTO message (idsender,idreceiver,msg,datetime,forall) VALUES(?)';
 
 		pool.getConnection(function(err, connection) {
 		  // Use the connection
-		  connection.query(insertMsg,[msgSinNick],function(err, rows) {
+		  connection.query(insertMsg,[msgContent],function(err, rows) {
 		  		if(err){
 		  			console.log(err);
 		  			return;
@@ -108,9 +137,7 @@ io.on('connection', function(socket){
 	});//end socket.on 'chat message'
 
 
-	function loadData(myUser){
-	//if(!isInitMsgs){ //searching stored messages
-		//var selectMsgs='SELECT * FROM message WHERE idSender=? or idreceiver=? ORDER BY datetime';
+	function loadData(myUserId){
 		var selectMsgs='SELECT message.idmsg, message.idsender, user.nickname, message.idreceiver,user.email, message.msg,'+
 		' message.datetime FROM message INNER JOIN user ON (message.idsender = user.iduser)'+
 		' WHERE message.idSender=? or message.idreceiver=? ORDER BY message.idmsg ';
@@ -120,7 +147,7 @@ io.on('connection', function(socket){
 		//console.log('idUsuario Actual Logeado: '+myUser)
 		pool.getConnection(function(err, connection) {
 		  // Use the connection
-		  connection.query(selectMsgs,[myUser,myUser],function(err, zrows) {
+		  connection.query(selectMsgs,[myUserId,myUserId],function(err, zrows) {
 		  		if(err){
 		  			console.log(err);
 		  			return;
@@ -135,10 +162,6 @@ io.on('connection', function(socket){
 		    // Don't use the connection here, it has been returned to the pool.
 		  });
 		});
-	/*}else{
-		socket.emit('initial msgs',dataRows); //sending msgs to index.html
-		//isInitMsgs=false;
-	}*/
 	//-----------------------------------END of bloque IF
 }//end function loadData;
 
