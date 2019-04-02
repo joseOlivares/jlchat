@@ -62,8 +62,8 @@ var app={ //'https://chat2016.herokuapp.com/'
 							  //debugger;
 				 				$('#messages').append('<div class="bubble2 me"><div class="uk-flex-row uk-flex-middle" uk-grid><div class="uk-width-auto">'+userImg +'</div><div class="uk-width-expand">'+data[i].nickname+' '+usericon+' </br>'+data[i].msg + '    ' + '<h6><small class="uk-text-right">  '+data[i].datetime + '</small></h6></div></div></div>');
 			       }else{
-							 debugger;
-				 				//$('#messages').append('<div class="bubble you"><div class="uk-flex-row uk-flex-middle" uk-grid><div class="uk-width-expand">'+data[i].nickname+' '+usericon+' </br>'+data[i].msg + '    ' + '<h6><small>  '+data[i].datetime + '</small></h6></div><div class="uk-width-auto">'+userImg+'</div></div></div>');
+							 //debugger;
+				 				$('#messages').append('<div class="bubble you"><div class="uk-flex-row uk-flex-middle" uk-grid><div class="uk-width-expand">'+data[i].nickname+' '+usericon+' </br>'+data[i].msg + '    ' + '<h6><small>  '+data[i].datetime + '</small></h6></div><div class="uk-width-auto">'+userImg+'</div></div></div>');
 				 		}
 	        }
 	 	    $('#txtChat').scrollTop($('#txtChat')[0].scrollHeight);//moving to the last msg
@@ -97,7 +97,7 @@ var app={ //'https://chat2016.herokuapp.com/'
 	     //---------------------------------------------------
 
 	      socket.on('chat newmsg', function(msg2){ //recive informacion ingresda en chat
-	      	alert('Nuevo mensaje acaba de llegar');
+	      	//alert('Nuevo mensaje acaba de llegar');
 	      //	var timenow=getDateTime(); //getting time from personal function in jlfunctions.js
 					//debugger;
 		 			if(msg2.senderId===senderId){//right allingment for my messages
