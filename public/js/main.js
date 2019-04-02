@@ -117,7 +117,6 @@ var app={ //'https://chat2016.herokuapp.com/'
 	      function toReceivers(otherUser){
 						var receivers = document.getElementById('receiverNick').options;
 						var totalReceivers=receivers.length;
-
 						if (senderNick===otherUser.nickname) {
 								senderId=otherUser.iduser; //guardamos el id del usuario actual
 								$('#m').prop('disabled', false); //enabling input message
