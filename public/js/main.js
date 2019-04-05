@@ -1,5 +1,5 @@
-var app={ //'https://chat2016.herokuapp.com/'
-	serverUrl:'https://chat2016.herokuapp.com/',
+var app={ //'https://chat2016.herokuapp.com/   http://localhost:3000'
+	serverUrl:'https://chat2016.herokuapp.com',
 
 	listenSocket:function(){
 	   var socket = io.connect(this.serverUrl); //creating socket connection
