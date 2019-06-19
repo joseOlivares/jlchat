@@ -12,10 +12,10 @@ var mysql = require('mysql');
 var pool= mysql.createPool({
   host     : 'remotemysql.com',
   port	   : 3306,
-  user     : '99unc1jGA5',
-  password : 'bpmVGjQtlv',
+  user     : 'Z0C7OZ6vDm',
+  password : 'DN1Vic28Jf',
   insecureAuth: true,
-  database : '99unc1jGA5'
+  database : 'Z0C7OZ6vDm'
 });
 
 // Define/initialize our global vars
