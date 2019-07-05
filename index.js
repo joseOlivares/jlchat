@@ -84,7 +84,7 @@ io.on('connection', function(socket){
                   socketId: socket.id, //sockeid del cliente
                   idNickuser: rows[0].iduser //user id from database
                 };
-                loadData(rows[0].iduser); //cargando data en base al idusuario de tabla de base de datos
+                loadData(rows[0].iduser); //cargando data segun el idusuario de tabla de base de datos
             }else {
               console.log("User query result length is not 0 or 1, check the query...");
             }

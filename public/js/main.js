@@ -34,7 +34,6 @@ var app={ //'https://chat2016.herokuapp.com/   http://localhost:3000'
 				//	var totalReceivers=receivers.length;
 				//$('#receiverNick').empty(); 			//limpiando select
 				$('#receiverNick').find('option').not(':first').remove();
-
 					for (const key in users) {
 					  let value = users[key];
 							//debugger;
