@@ -63,7 +63,7 @@ io.on('connection', function(socket){
                       console.log(err);
                       return;
                     }else{
-                      console.log('New user inserted on database!');
+                      console.log(`New user ${nickUser} inserted on database!`);
                     }
                 });
 
