@@ -104,12 +104,12 @@ io.on('connection', function(socket){
 
 	socket.on('chat message', function(msg){ //broadcasting msgs
 	    //console.log(msg);
-      msg.time=serverTime.myTime(); //agregamos propiedad tiempo
+      //msg.time=serverTime.myTime(); //agregamos propiedad tiempo del server
 		const msgContent=[];
 		msgContent[0]=msg.senderId;//idsender
 		msgContent[1]=msg.receiverId;//idreceiver
 		msgContent[2]=msg.msg; //message
-		msgContent[3]=serverTime.myTime(); //adding server time to msg
+		msgContent[3]=msg.time; //serverTime.myTime(); //adding server time to msg
 		msgContent[4]=0; //message forall= 0 (private message)
     //enviando mensaje a dstinatario privado
 
