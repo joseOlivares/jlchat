@@ -85,7 +85,8 @@ var app={ //'https://chat2016.herokuapp.com/   http://localhost:3000'
 	      		$('#m').focus();
 	      		return false;
 	      	}else{
-	      		socket.emit('chat message', {senderId:senderId,senderNick:senderNick,receiverId:receiverId,receiverNick:receiverNick,msg:msg,time:new Date().toLocaleString()}); //envindo mensaje a node
+						//obtener datetime local  new Date().toLocaleString()
+	      		socket.emit('chat message', {senderId:senderId,senderNick:senderNick,receiverId:receiverId,receiverNick:receiverNick,msg:msg,time:getDateTime()}); //envindo mensaje a node
 	      		//showMsg(arraymsg);
 	      	}
 
