@@ -76,22 +76,25 @@ io.on('connection', function(socket){
                         socketId: socket.id, //sockeid del cliente
                         idNickuser: rows2[0].iduser // id de usurio de tabla base de datos
                       };
+
+                      loadData(rows2[0].iduser); //cargando data segun el idusuario de tabla de base de datos
+                      io.sockets.emit('update userslist',userInfo); //actualizando listado de usuarios conectados par todos
                     }
                 });
-
-            }else if (userQueryResult===1) { //If user already exist
+            }else if (userQueryResult===1){ //If user already exist
                 userInfo[nickUser]={
                   socketId: socket.id, //sockeid del cliente
                   idNickuser: rows[0].iduser //user id from database
                 };
                 loadData(rows[0].iduser); //cargando data segun el idusuario de tabla de base de datos
+                io.sockets.emit('update userslist',userInfo); //actualizando listado de usuarios conectados par todos
+
             }else {
               console.log("User query result length is not 0 or 1, check the query...");
             }
             console.log("UserInfo= ",userInfo);
-        //   io.sockets.emit('update userslist',{iduser:userInfo[nickUser].idNickuser,nickname:nickUser}); //actualizando listado de usuarios conectados par todos
           //listConnectedUsers.push({idNickuser:userInfo[nickUser].idNickuser,nickname:nickUser});
-           io.sockets.emit('update userslist',userInfo); //actualizando listado de usuarios conectados par todos
+          //io.sockets.emit('update userslist',userInfo); //actualizando listado de usuarios conectados par todos
   		    // release connection
   		    connection.release();
   		    // Don't use the connection here, it has been returned to the pool.
