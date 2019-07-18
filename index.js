@@ -88,7 +88,7 @@ io.on('connection', function(socket){
             }else {
               console.log("User query result length is not 0 or 1, check the query...");
             }
-
+            console.log("UserInfo= ",userInfo);
         //   io.sockets.emit('update userslist',{iduser:userInfo[nickUser].idNickuser,nickname:nickUser}); //actualizando listado de usuarios conectados par todos
           //listConnectedUsers.push({idNickuser:userInfo[nickUser].idNickuser,nickname:nickUser});
            io.sockets.emit('update userslist',userInfo); //actualizando listado de usuarios conectados par todos

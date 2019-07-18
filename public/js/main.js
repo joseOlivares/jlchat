@@ -2,11 +2,11 @@ var app={ //'https://chat2016.herokuapp.com/   http://localhost:3000'
 	serverUrl:'https://chat2016.herokuapp.com',
 
 	listenSocket:function(){
-	   var socket = io.connect(this.serverUrl); //creating socket connection
-	   var usericon='<span uk-icon="commenting"></span> ';
-	   var senderId=-1;//current user Id
- 		 var senderNick=-1;	//initial default value
- 		 var userImg='<img src="img/user.gif" class="img-responsive img-circle center-block" alt="user image">';
+	   let socket = io.connect(this.serverUrl); //creating socket connection
+	   let usericon='<span uk-icon="commenting"></span> ';
+	   let senderId=-1;//current user Id
+ 		 let senderNick=-1;	//initial default value
+ 		 const userImg='<img src="img/user.gif" class="img-responsive img-circle center-block" alt="user image">';
 
 		$('#senderNick').prop('disabled', false);//enabling input sender login
 		$('#m').prop('disabled',true);//disabling  send
